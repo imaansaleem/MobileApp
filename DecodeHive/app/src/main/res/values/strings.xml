@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">SignUp</string>
+    <string name="email">Email or Phone</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">DeCodeHive</string>
+    <string name="signIn">Sign in</string>
+    <string name="welcome">WELCOME</string>
+    <string name="Go">Let\'s Go</string>
+    <string name="title">Best Books Collection</string>
+    <string name="product_input">Add Product</string>
+    <string name="applogo">AppLogo</string>
+    <string name="sign_up">Sign up</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="my_cart">My Cart</string>
+    <string name="Aboutbook">About Book</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="total_incl_vat">Total (incl. VAT)</string>
+    <string name="place_order">Place Order</string>
+    <string name="your_cart">Your Cart</string>
+    <string name="sign_out">Sign out</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="sign_up_now">Sign up now</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_in_now">Sign in now</string>
+    <string name="default_price">$0.00</string>
+</resources>
