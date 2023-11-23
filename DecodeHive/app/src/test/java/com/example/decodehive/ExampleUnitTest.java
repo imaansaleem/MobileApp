@@ -1,4 +1,4 @@
-package com.example.booksellingmobileapp;
+package com.example.decodehive;
 
 import org.junit.Test;
 

@@ -1,4 +1,5 @@
-package com.example.booksellingmobileapp.Databases;
+package com.example.decodehive.Databases;
+
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,10 +10,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.booksellingmobileapp.Databases.DAOs.ProductDao;
-import com.example.booksellingmobileapp.Databases.Entities.Product;
+import com.example.decodehive.Databases.DAOs.ProductDao;
+import com.example.decodehive.Databases.Entities.Product;
 
-//actordatabase
 @Database(entities = {Product.class}, version = 1, exportSchema = false)
 public abstract class ProductRoomDatabase extends RoomDatabase {
 

@@ -1,4 +1,5 @@
-package com.example.booksellingmobileapp.ViewModel;
+package com.example.decodehive.ViewModel;
+
 
 import android.app.Application;
 
@@ -6,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.booksellingmobileapp.Databases.Entities.Product;
-import com.example.booksellingmobileapp.Databases.ProductRepository;
+import com.example.decodehive.Databases.Entities.Product;
+import com.example.decodehive.Databases.ProductRepository;
 
 import java.util.List;
 
