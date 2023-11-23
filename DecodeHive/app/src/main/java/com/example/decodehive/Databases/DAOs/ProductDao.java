@@ -1,4 +1,5 @@
-package com.example.booksellingmobileapp.Databases.DAOs;
+package com.example.decodehive.Databases.DAOs;
+
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.booksellingmobileapp.Databases.Entities.Product;
+import com.example.decodehive.Databases.Entities.Product;
 
 import java.util.List;
 

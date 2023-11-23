@@ -1,10 +1,9 @@
-package com.example.booksellingmobileapp.Databases.Entities;
+package com.example.decodehive.Databases.Entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-//Table name will be product
-@Entity
+@Entity(tableName = "product")
 public class Product {
     @PrimaryKey(autoGenerate = true)
     public int id=0;
@@ -12,16 +11,6 @@ public class Product {
     String ISBN;
     String description;
     double price;
-
-/*
-    public Product(String name, String isbn, String desc, double pr){
-        bookName = name;
-        ISBN = isbn;
-        description = desc;
-        price = pr;
-    }
-*/
-
     public double getPrice() {
         return price;
     }

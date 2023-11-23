@@ -1,4 +1,4 @@
-package com.example.booksellingmobileapp.activites;
+package com.example.decodehive.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.booksellingmobileapp.Databases.Entities.Product;
-import com.example.booksellingmobileapp.R;
-import com.example.booksellingmobileapp.ViewModel.ProductViewModel;
+import com.example.decodehive.Databases.Entities.Product;
+import com.example.decodehive.R;
+import com.example.decodehive.ViewModel.ProductViewModel;
 
 public class ProductInput extends AppCompatActivity {
     EditText editTextBookName;
@@ -36,6 +37,7 @@ public class ProductInput extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextPrice = findViewById(R.id.editTextPrice);
         btnAddProduct = findViewById(R.id.btnAddProduct);
+        productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
     }
 
     public void AddProductToDatabase() {
@@ -101,8 +103,8 @@ public class ProductInput extends AppCompatActivity {
             // Assuming you have a ProductViewModel instance named productViewModel
             productViewModel.insertProduct(newProduct);
 
-            Intent intent = new Intent(ProductInput.this, RVActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(ProductInput.this, RVActivity.class);
+//            startActivity(intent);
         }
 
     }
