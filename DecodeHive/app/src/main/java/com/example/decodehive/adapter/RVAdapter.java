@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.decodehive.Databases.Entities.Product;
+import com.example.decodehive.Interfaces.IRecyclerViewData;
 import com.example.decodehive.R;
 
 import java.util.ArrayList;
@@ -22,10 +24,12 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     private Context context;
     private List<Product> listData;
+    IRecyclerViewData data;
 
-    public RVAdapter(Context context) {
+    public RVAdapter(Context context, List<Product> listData, IRecyclerViewData data) {
         this.context = context;
         this.listData = new ArrayList<>();
+        this.data = data;
     }
 
     public void setProductList(List<Product> productList) {
@@ -51,6 +55,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         holder.name.setTypeface(null, Typeface.BOLD);
         holder.price.setText(HtmlCompat.fromHtml("<b>Price: </b>$" + listData.get(position).getPrice(), HtmlCompat.FROM_HTML_MODE_LEGACY, null, null));
         holder.isbn.setText(HtmlCompat.fromHtml("<b>ISBN: </b>" + listData.get(position).getISBN(), HtmlCompat.FROM_HTML_MODE_LEGACY, null, null));
+
+        final int idx = position;
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.sendData(listData.get(idx));
+            }
+        });
     }
 
     @Override

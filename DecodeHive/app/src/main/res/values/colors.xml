@@ -6,4 +6,6 @@
     <color name="logoBack">#050606</color>
     <color name="green">#61C08C</color>
     <color name="grey">#eceeef</color>
+    <color name="red">#DB3022</color>
+    <color name="lightBlack">#191919</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.decodehive.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class ProductInput extends AppCompatActivity {
         initialize();
     }
 
+    @SuppressLint("SetTextI18n")
     void initialize() {
         editTextBookName = findViewById(R.id.editTextBookName);
         editTextISBN = findViewById(R.id.editTextISBN);
@@ -38,10 +40,28 @@ public class ProductInput extends AppCompatActivity {
         editTextPrice = findViewById(R.id.editTextPrice);
         btnAddProduct = findViewById(R.id.btnAddProduct);
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        AddProductToDatabase();
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle == null) {
+            btnAddProduct.setText("Add Product");
+            AddProductToDatabase(true, 0);
+        } else {
+            btnAddProduct.setText("Edit Product");
+            String bookName = bundle.getString("name");
+            String ISBN = bundle.getString("isbn");
+            String description = bundle.getString("description");
+            String priceStr = bundle.getString("price");
+            int id = bundle.getInt("id");
+            editTextPrice.setText(priceStr);
+            editTextBookName.setText(bookName);
+            editTextDescription.setText(description);
+            editTextISBN.setText(ISBN);
+            AddProductToDatabase(false, id);
+        }
     }
 
-    public void AddProductToDatabase() {
+    public void AddProductToDatabase(boolean isNewProduct, int id) {
         Log.d("clicklist", "bander");
         final boolean[] isValid = {true}; // Flag to check overall validity
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +78,17 @@ public class ProductInput extends AppCompatActivity {
                     isValid[0] = false;
                 }
 
-                if(ISBN.isEmpty()){
+                if (ISBN.isEmpty()) {
                     editTextISBN.setError("ISBN must not be Empty");
                     isValid[0] = false;
                 }
 
-                if(description.isEmpty()){
+                if (description.isEmpty()) {
                     editTextDescription.setError("Description must not be Empty");
                     isValid[0] = false;
                 }
 
-                if(priceStr.isEmpty()){
+                if (priceStr.isEmpty()) {
                     editTextPrice.setError("Price must not be Empty");
                     isValid[0] = false;
                 }
@@ -87,12 +107,13 @@ public class ProductInput extends AppCompatActivity {
                     isValid[0] = false;
                 }
 
-                if(isValid[0]){
+                if (isValid[0]) {
                     String bookName1 = editTextBookName.getText().toString();
                     String ISBN1 = editTextISBN.getText().toString();
                     String description1 = editTextDescription.getText().toString();
                     double price1 = Double.parseDouble(editTextPrice.getText().toString());
 
+                    //Product newProduct = Product.CREATOR.createFromParcel(parcelObject);
                     // Create a Product object with the input data
                     Product newProduct = new Product();
                     newProduct.setBookName(bookName1);
@@ -100,11 +121,15 @@ public class ProductInput extends AppCompatActivity {
                     newProduct.setDescription(description1);
                     newProduct.setPrice(price1);
 
-                    // Assuming you have a ProductViewModel instance named productViewModel
-                    productViewModel.insertProduct(newProduct);
-
-                    Intent intent = new Intent(ProductInput.this, RecyclerView.class);
-                    startActivity(intent);
+                    if(isNewProduct) {
+                        productViewModel.insertProduct(newProduct);
+                        Toast.makeText(ProductInput.this, "Item has been succesfully added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        newProduct.setId(id);
+                        productViewModel.updateProduct(newProduct);
+                        Toast.makeText(ProductInput.this, "Item has been succesfully edited", Toast.LENGTH_SHORT).show();
+                    }
+                    finish();
                 }
             }
         });
