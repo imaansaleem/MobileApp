@@ -27,4 +27,6 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="sign_in_now">Sign in now</string>
     <string name="default_price">$0.00</string>
+    <string name="edit_this_book">Edit</string>
+    <string name="delete_this_book">Delete</string>
 </resources>
