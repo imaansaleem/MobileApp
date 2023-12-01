@@ -57,7 +57,8 @@
             android:layout_below="@id/editTextBookName"
             android:layout_marginTop="16dp"
             android:hint="ISBN"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:minHeight="48dp"/>
 
         <EditText
             android:id="@+id/editTextDescription"
@@ -66,7 +67,8 @@
             android:layout_below="@id/editTextISBN"
             android:layout_marginTop="16dp"
             android:hint="Description"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:minHeight="48dp"/>
 
         <EditText
             android:id="@+id/editTextPrice"
@@ -75,7 +77,8 @@
             android:layout_below="@id/editTextDescription"
             android:layout_marginTop="16dp"
             android:hint="Price"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"/>
 
         <Button
             android:id="@+id/btnAddProduct"
