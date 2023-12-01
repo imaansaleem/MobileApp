@@ -2,6 +2,7 @@ package com.example.decodehive.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,6 @@ public class ProductInput extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_input);
         initialize();
-        AddProductToDatabase();
     }
 
     void initialize() {
@@ -38,9 +38,11 @@ public class ProductInput extends AppCompatActivity {
         editTextPrice = findViewById(R.id.editTextPrice);
         btnAddProduct = findViewById(R.id.btnAddProduct);
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        AddProductToDatabase();
     }
 
     public void AddProductToDatabase() {
+        Log.d("clicklist", "bander");
         final boolean[] isValid = {true}; // Flag to check overall validity
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,28 +86,28 @@ public class ProductInput extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter a valid price", Toast.LENGTH_SHORT).show();
                     isValid[0] = false;
                 }
+
+                if(isValid[0]){
+                    String bookName1 = editTextBookName.getText().toString();
+                    String ISBN1 = editTextISBN.getText().toString();
+                    String description1 = editTextDescription.getText().toString();
+                    double price1 = Double.parseDouble(editTextPrice.getText().toString());
+
+                    // Create a Product object with the input data
+                    Product newProduct = new Product();
+                    newProduct.setBookName(bookName1);
+                    newProduct.setISBN(ISBN1);
+                    newProduct.setDescription(description1);
+                    newProduct.setPrice(price1);
+
+                    // Assuming you have a ProductViewModel instance named productViewModel
+                    productViewModel.insertProduct(newProduct);
+
+                    Intent intent = new Intent(ProductInput.this, RecyclerView.class);
+                    startActivity(intent);
+                }
             }
         });
-
-        if(isValid[0]){
-            String bookName = editTextBookName.getText().toString();
-            String ISBN = editTextISBN.getText().toString();
-            String description = editTextDescription.getText().toString();
-            double price = Double.parseDouble(editTextPrice.getText().toString());
-
-            // Create a Product object with the input data
-            Product newProduct = new Product();
-            newProduct.setBookName(bookName);
-            newProduct.setISBN(ISBN);
-            newProduct.setDescription(description);
-            newProduct.setPrice(price);
-
-            // Assuming you have a ProductViewModel instance named productViewModel
-            productViewModel.insertProduct(newProduct);
-
-//            Intent intent = new Intent(ProductInput.this, RVActivity.class);
-//            startActivity(intent);
-        }
 
     }
 }
