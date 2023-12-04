@@ -16,6 +16,8 @@ import com.example.decodehive.Databases.Entities.Product;
 import com.example.decodehive.R;
 import com.example.decodehive.ViewModel.ProductViewModel;
 
+
+//when you press add product
 public class ProductInput extends AppCompatActivity {
     EditText editTextBookName;
     EditText editTextISBN;
