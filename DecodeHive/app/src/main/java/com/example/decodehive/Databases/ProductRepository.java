@@ -27,6 +27,7 @@ public class ProductRepository {
     }
 
     public void insertProduct(Product product) {
+        //productRoomDatabase.productDao().insertProduct().execute();
         new InsertAsyncTask(productRoomDatabase).execute(product);
     }
 

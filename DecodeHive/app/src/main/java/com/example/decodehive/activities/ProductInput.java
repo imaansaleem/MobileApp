@@ -1,7 +1,13 @@
 package com.example.decodehive.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.decodehive.Databases.Entities.Product;
@@ -129,7 +136,9 @@ public class ProductInput extends AppCompatActivity {
                     } else {
                         newProduct.setId(id);
                         productViewModel.updateProduct(newProduct);
-                        Toast.makeText(ProductInput.this, "Item has been succesfully edited", Toast.LENGTH_SHORT).show();
+
+                        //display notification
+                        notification("Edit Product", "The Product has been updated successfully", R.drawable.edit);
                     }
                     finish();
                 }
@@ -137,4 +146,46 @@ public class ProductInput extends AppCompatActivity {
         });
 
     }
+
+    private static final String CHANNEL_ID = "my_channel";
+    private final int NOTIFICATION_ID = 100;
+    void notification(String title, String message, int img) {
+
+        // converting from int to drawable
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.book, null);
+
+        // converting to bitmap
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+        Bitmap largeIcon = bitmapDrawable.getBitmap();
+
+        // getting access via manager
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            //before Oreo
+            //// main title will be app name, subtext will be custom title
+            notification = new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(img)
+                    .setContentText(message)
+                    .setSubText(title)
+                    .setChannelId(CHANNEL_ID)
+                    .build();
+            nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "New Channel", NotificationManager.IMPORTANCE_HIGH));
+
+        } else {
+            // after oreo
+            notification = new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(img)
+                    .setContentText(message)
+                    .setSubText(title)
+                    .build();
+        }
+
+        nm.notify(NOTIFICATION_ID, notification);
+    }
+
 }
