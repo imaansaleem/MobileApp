@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to Delete?"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Yes Button -->
+        <Button
+            android:id="@+id/yesButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_button_shape"
+            android:text="Yes"
+            android:textColor="#FFFFFF" />
+        <!-- No Button -->
+        <Button
+            android:id="@+id/noButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle_button_danger"
+            android:text="No"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+</LinearLayout>

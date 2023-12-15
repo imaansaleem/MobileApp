@@ -1,8 +1,10 @@
 package com.example.decodehive.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import com.example.decodehive.Databases.Entities.User;
 import com.example.decodehive.R;
 import com.example.decodehive.ViewModel.ProductViewModel;
 import com.example.decodehive.ViewModel.UserViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -153,23 +156,9 @@ public class Signup extends AppCompatActivity {
                         Log.d("Sigin", currentUser.getUsername() + " " + password);
 
                         //show A notification
-                        Toast.makeText(Signup.this, "Hey " + username + "! You are good to go", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Signup.this, "Hey " + username + "! You are good to go", Toast.LENGTH_SHORT).show();
+                        DefaultDialogueBox();
 
-                        //You need to send data to next activity
-                        //Bundle is a data structure used for passing data between different components of an Android application, such as between activities, fragments,
-                        //Bundle is to store key-value pairs of data, where keys are strings, and values can be various data types
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", username);
-
-                        //intent allows communication between activity and fragments
-                        Intent intent = new Intent(Signup.this, Welcome.class);
-
-                        //sending data to Welcome
-                        intent.putExtras(bundle);
-
-                        //startnext activity
-                        startActivity(intent);
-                        finish();
                     } else {
                         signinName.setError("Incorrect Username or Password");
                         signinPassword.setError("Incorrect Username or Password");
@@ -209,6 +198,35 @@ public class Signup extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void DefaultDialogueBox() {
+        // default dialogue box
+        AlertDialog materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //You need to send data to next activity
+                        //Bundle is a data structure used for passing data between different components of an Android application, such as between activities, fragments,
+                        //Bundle is to store key-value pairs of data, where keys are strings, and values can be various data types
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", username);
+
+                        //intent allows communication between activity and fragments
+                        Intent intent = new Intent(Signup.this, Welcome.class);
+
+                        //sending data to Welcome
+                        intent.putExtras(bundle);
+
+                        //startnext activity
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setTitle("Logged In successfully")
+                .setCancelable(false)
+                .show();
     }
 
     //if user signs up check if this exists
