@@ -38,7 +38,6 @@ public class Signup extends AppCompatActivity {
     EditText signinPassword, signupPassword, confirmPassword;
     Button signinButton, signupButton;
     String username = null, password = null, confirmPass = null, email = null;
-    Spinner signinSignupSpinner;
     UserViewModel userViewModel;
 
     // to store all signedup users
@@ -52,18 +51,10 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
-        //one user is always there
-        addUser("imaan@gmail.com", "Imaan", "1234");
-        User user = new User("imaan@gmail.com", "Imaan", "1234");
-        userViewModel.inserUser(user);
-
-        signinSignupSpinner = findViewById(R.id.signin_signup_options);
         signinLinearLayout = findViewById(R.id.signin_linear);
         signupLinearLayout = findViewById(R.id.signup_linear);
 
         initialize();
-        initializeSpinner();
         clickListeners();
     }
 
@@ -81,58 +72,30 @@ public class Signup extends AppCompatActivity {
         signupButton = findViewById(R.id.signup_button);
     }
 
-    void initializeSpinner() {
-        //setting up a Spinner widget
-        //(arraylist of text to be displayed on spinner,  predefined layout resource )
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.login_signup_spinner, android.R.layout.simple_spinner_item);
-        //layout is used for displaying the dropdown list
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //adapter for the Spinner named signinSignupSpinner
-        signinSignupSpinner.setAdapter(adapter);
-
-        signinSignupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selectedSpinnerItem = signinSignupSpinner.getSelectedItem().toString();
-                if (selectedSpinnerItem.equals("Signin")) {
-                    signinLinearLayout.setVisibility(View.VISIBLE);
-                    signupLinearLayout.setVisibility(View.GONE);
-                } else if (selectedSpinnerItem.equals("Signup")) {
-                    signinLinearLayout.setVisibility(View.GONE);
-                    signupLinearLayout.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                signinLinearLayout.setVisibility(View.VISIBLE);
-                signupLinearLayout.setVisibility(View.GONE);
-            }
-        });
-    }
-
     public void clickListeners() {
         signinText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signinSignupSpinner.setSelection(0);
+                Log.d("signin", signinText.toString());
+                signinLinearLayout.setVisibility(View.VISIBLE);
+                signupLinearLayout.setVisibility(View.GONE);
             }
         });
 
         signupText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signinSignupSpinner.setSelection(1);
+                Log.d("signupup", signinText.toString());
+                signinLinearLayout.setVisibility(View.GONE);
+                signupLinearLayout.setVisibility(View.VISIBLE);
             }
         });
 
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    username = "Imaan";
-                    password="1234";
-//                username = signinName.getText().toString();
-//                password = signinPassword.getText().toString();
+                username = signinName.getText().toString();
+                password = signinPassword.getText().toString();
                 //data stored to data members
 
                 if (username == null || username.equals("")) {
@@ -142,7 +105,6 @@ public class Signup extends AppCompatActivity {
                     //set error to field
                     signinPassword.setError("There must be a password");
                 } else {
-//                    User currentUser = validateUser(username, password);
                     User currentUser = userViewModel.getUser(email, username, password);
                     if (currentUser != null) {
                         User.setLoggedInUser(currentUser);
@@ -192,9 +154,11 @@ public class Signup extends AppCompatActivity {
                     signupPassword.setError("Both passwords must be same");
                     confirmPassword.setError("Both passwords must be same");
                 } else {
-                    addUser(email, username, password);
+                    User user = new User(email, username, password);
+                    userViewModel.insertUser(user);
                     Toast.makeText(Signup.this, "Sign up completed! Please Signin now", Toast.LENGTH_SHORT).show();
-                    signinSignupSpinner.setSelection(0); // go back to sign in screen
+                    signinLinearLayout.setVisibility(View.VISIBLE);
+                    signupLinearLayout.setVisibility(View.GONE);
                 }
             }
         });

@@ -13,7 +13,6 @@ import com.example.decodehive.R;
 public class Welcome extends AppCompatActivity {
 
     TextView welcome;
-    //Bundle bundle = null;
     Button start, cart, signout;
 
     @Override
@@ -28,7 +27,6 @@ public class Welcome extends AppCompatActivity {
         String name = bundle.getString("name", "User");
         String text = "WELCOME\n" + name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + "!";
         welcome.setText(text);
-        //welcome.setText("Welcome\nImaan");
         clickListeners();
     }
 
