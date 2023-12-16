@@ -8,13 +8,6 @@
     android:weightSum="3"
     tools:context=".activities.Signup">
 
-    <Spinner
-        android:id="@+id/signin_signup_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:entries="@array/login_signup_spinner" />
-
     <ImageView
         android:id="@+id/SplashScreenLogo"
         android:layout_width="340dp"

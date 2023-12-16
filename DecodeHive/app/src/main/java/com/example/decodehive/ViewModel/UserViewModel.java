@@ -16,14 +16,13 @@ import java.util.List;
 public class UserViewModel extends AndroidViewModel {
     private UserRepository userRepository;
     private User user;
-
+    
     public UserViewModel(@NonNull Application application) {
         super(application);
         userRepository = new UserRepository(application);
-        user = userRepository.getUser("Imaan", "Imaan", "1234");
     }
 
-    public void inserUser(User user) {
+    public void insertUser(User user) {
         userRepository.insertUser(user);
     }
     public User getUser(String email, String username, String password) {

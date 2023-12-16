@@ -28,9 +28,9 @@ public class UserRepository {
 
     public User getUser(String email, String username, String password) {
         try {
-            return new GetAsyncTask(userRoomDatabase).execute().get();
+            return new GetAsyncTask(userRoomDatabase, email, username, password).execute().get();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
     }
@@ -50,13 +50,20 @@ public class UserRepository {
 
     class GetAsyncTask extends AsyncTask<Void, User, User> {
         private UserDao userDao;
-        GetAsyncTask(UserRoomDatabase userRoomDatabase){
-            userDao = userRoomDatabase.userDao();
+        private String email;
+        private String username;
+        private String password;
+
+        GetAsyncTask(UserRoomDatabase userRoomDatabase, String email, String username, String password){
+            this.userDao = userRoomDatabase.userDao();
+            this.email = email;
+            this.username = username;
+            this.password = password;
         }
 
         @Override
-        protected User doInBackground(Void... Void) {
-            return userDao.getUser("Imaan", "Imaan", "1234");
+        protected User doInBackground(Void... voids) {
+            return userDao.getUser(email, username, password);
         }
     }
 }
